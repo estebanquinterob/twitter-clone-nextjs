@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    // por defecto viene sin esta linea jsx, esto le indica al compilador y al editor que mi codigo pued eincluir sintaxis jsx, procede deacuerdo a ello
+    "jsx": "react-jsx",
     "paths": {
       "@/*": ["./*"]
     }
