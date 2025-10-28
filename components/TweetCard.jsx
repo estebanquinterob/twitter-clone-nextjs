@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
+import { ThumbsUp, ThumbsDown } from "lucide-react";
 
 // aqui tuve una confusion con la destructuracion del tweet y su paso como prop, por lo que tuve que leer sobre ello
 export default function TweetCard({ tweet }) {
@@ -42,15 +44,21 @@ export default function TweetCard({ tweet }) {
 
     return (
         <article className="p-4 m-3 rounded-2xl shadow-md hovereffect hovereffect:hover text-gray-700">
-            <div>
-                <h2 className="font-semibold">{title}</h2>
-                <p>{body}</p>
-            </div>
+            <Link key={tweet.id} href={`/tweet/${tweet.id}`}>   
+                <div>
+                    <h2 className="font-semibold mb-3">{title}</h2>
+                    <p>{body}</p>
+                </div>
+            </Link>
             <div>
                 <div>{tags?.map( tag => (<span key={tag} className="mr-2 text-sm text-blue-500">#{tag}</span>))}</div>
                 <div className="flex justify-center gap-3 m-2">
-                    <span className={`cursor-pointer px-2 py-1 rounded hovereffect hovereffect:hover ${hasLiked ? "bg-green-600/60" : "bg-gray-200"}`} onClick={handleLike}>👍 {likes} </span>
-                    <span className={`cursor-pointer px-2 py-1 rounded hovereffect hovereffect:hover ml-2 ${hasDisliked ? "bg-red-500/60" : "bg-gray-200"}`} onClick={handleDislike}>👎 {dislikes}</span>
+                    <button className={`flex gap-1 cursor-pointer px-2 py-1 rounded-full ${hasLiked ? "bg-green-600/60 text-white" : "bg-gray-200 hover:text-green-500"}`} onClick={handleLike}>
+                    <ThumbsUp size={18} /> <span> {likes} </span> 
+                    </button>
+                    <button className={`flex gap-1 cursor-pointer px-2 py-1 rounded-full ${hasDisliked ? "bg-red-500/60 text-white" : "bg-gray-200 hover:text-red-500"}`} onClick={handleDislike}>
+                    <ThumbsDown size={18} className="relative top-1"/> <span> {dislikes} </span>
+                    </button>
                 </div>
             </div>
         </article>

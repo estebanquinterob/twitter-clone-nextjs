@@ -1,11 +1,13 @@
+import Link from "next/link";
+
 export default function Header() {
     return (
         <div className="p-8 bg-blue-500 text-amber-50 flex justify-between items-center">
             <h1 className="text-xl font-bold">My Twitter Clone</h1>
             <nav>
                 <ul className="flex gap-10">
-                    <li>Home</li>
-                    <li>About</li>
+                    <Link href="/">Home</Link>
+                    <Link href="/about">About</Link>
                 </ul>
             </nav>
         </div>

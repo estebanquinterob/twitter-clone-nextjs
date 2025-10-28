@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import TweetCard from "./TweetCard";
+import Link from "next/link";
 
 export default function TweetList({ tweets }) {
     const [visible, setVisible] = useState(5);
@@ -11,7 +12,7 @@ export default function TweetList({ tweets }) {
         <section>
             {tweets.slice(0, visible).map((tweet) => (
                 <TweetCard key={tweet.id} tweet={tweet} />
-            ))}
+            ))} 
 
             {visible < tweets.length && (
                 <button onClick={showMore}>Show More</button>
