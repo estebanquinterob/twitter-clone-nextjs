@@ -1,4 +1,4 @@
-import Link from "next/link";
+import NavLink from "./NavLink";
 
 export default function Header() {
     return (
@@ -6,8 +6,8 @@ export default function Header() {
             <h1 className="text-xl font-bold">My Twitter Clone</h1>
             <nav>
                 <ul className="flex gap-10">
-                    <Link href="/">Home</Link>
-                    <Link href="/about">About</Link>
+                    <NavLink href="/">Home</NavLink>
+                    <NavLink href="/about">About</NavLink>
                 </ul>
             </nav>
         </div>
@@ -16,3 +16,4 @@ export default function Header() {
 
 // h1 --> titulo mas grande o logo
 // el header con un color de fondo y el main con un degradado de colores claros
+// voy a usar pathname para saber en que pagina estoy y cambiar el color del link correspondiente o alguna caracteristica para resaltar
