@@ -15,14 +15,10 @@ export default async function HomePage() {
   const tweets = await fetchTweets();
   return (
     <main>
-      <h1 className="text-center font-bold m-4 text-xl">Welcome to Twitter Clone</h1>
-      <section className="grid grid-cols-1 md:grid-cols-[1fr_2fr_1fr] gap-6 px-4">
-        <aside className="bg-gray-100 p-4 rounded-lg order-2 md:order-1">Left Sidebar</aside>
-        <article className="p-6 order-1 md:order-2">
+        <article className="p-6">
+            <h1 className="text-center font-bold m-4 text-xl">Welcome to Twitter Clone</h1>
             <TweetList tweets={tweets} />
         </article>
-        <aside className="bg-gray-100 p-4 rounded-lg order-3 md:order-3">Right Sidebar</aside>
-      </section>
     </main>
   );
 }
@@ -30,6 +26,19 @@ export default async function HomePage() {
 // aqui iria el fetch y luego llama tweetcard, header, sidebar
 // para el fetch debo usar el useEffect y useState de react? 
 // aqui quiero poner 2 columnas, una para sidebar, otra central principal y otra a la derecha vacia o con algo que aun no se ha definido
+// si quiero pasarle classname a un componente debo ponerlo explicitamente en las props del componente
+{/* 
+  ejemplo
+  <Sidebar className="order-1 md:order-2" />
 
+Y en tu componente Sidebar.jsx:
 
+jsx
+export default function Sidebar({ className }) {
+  return (
+    <aside className={`bg-gray-100 p-4 rounded-lg ${className}`}>
+      Sidebar content here
+    </aside>
+  );
+} */}
 

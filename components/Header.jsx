@@ -5,9 +5,10 @@ export default function Header() {
         <div className="p-8 bg-blue-500 text-amber-50 flex justify-between items-center">
             <h1 className="text-xl font-bold">My Twitter Clone</h1>
             <nav>
-                <ul className="flex gap-10">
+                <ul className="flex md:gap-6 sm:gap-2">
                     <NavLink href="/">Home</NavLink>
                     <NavLink href="/about">About</NavLink>
+                    <NavLink href="/logOut">Log out</NavLink>
                 </ul>
             </nav>
         </div>

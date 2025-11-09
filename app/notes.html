@@ -17,3 +17,35 @@ maquetacion:
 - muestra como conectar una base de datos y luego ser capaz de alimentar esa base de datos desde el frontend
 - leer sobre mongoDb y databases en nextjs, amazon web services.
 - leer sobre mongoose -->
+
+tareas:
+- ahora quiero agregar la parte de los comentarios, en el pagedetail y el logo de comentario simplemente en el tweetcard
+- en el tweetlist agregar un text area o input para realizar un tweet, el segundo paso seria que el tweet se agrege a la lista de tweets
+- pagina de perfil
+- barra derecha, no se si irian tendencias, amigos, o algun tipo de informacion
+- aun no estoy seguro de que poner a los demas links de la barra lateral
+- estilizar la barra lateral cuando es smartphone
+
+* necesito un input, un boton de comentar, con el boton enviar el input a un array que lo guarde
+    - crear un array donde se guarden los comentarios y se muestren en el tweet. me pregunto la injerencia del id o si no debo tocar nada de esa parte
+* el text area para realizar un nuevo tweet y un boton de tweet para enviar tweet a la lista de tweets y guardarlo y que se muestre en pantalla
+
+06.11.25 data bases
+
+
+publicar un nuevo tweet
+
+- crear el formulario, input o text area donde se escribira el tweet y un boton para publicarlo
+- no se si crear un nuevo componente para esto y ponerlo dentro de tweetlist o hacerlo en el tweetlist directamente
+- no se si crear un estado para el nuevo tweet o simplemente agregarlo al array de tweets, estoy en duda si es mejor crear un estado para el nuevo tweet y luego agregarlo al array de tweets como grupo o simplemente agregarlo directamente al array de tweets
+- el boton de publicar tendra la funcion de guardar el tweet.
+- el tweet se agregara al inicio del array de tweets para que se muestre primero, como lo hago?
+
+comentarios de tweets
+- en tweetlist solo se vera la cantidad de comentarios, pero los comentarios solo se veran en tweetdetail
+- crear un input o text area para escribir el comentario y un boton para publicarlo, similiar a crear tweet, talvez reutilizando un componente si solo cambiarle las caracteristicas?
+- el comentario se agregara a un array de comentarios dentro del tweet correspondiente, como lo hago? con el id del tweet?
+- el boton de publicar tendra la funcion de guardar el comentario en el array de comentarios del tweet correspondiente
+
+backend (puedo considerarl ahora pero aun lo estamos aprendiendo)
+- mirar como se conecta el frontend con el backend y la base de datos de los tweets y comentarios
