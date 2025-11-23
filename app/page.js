@@ -27,7 +27,7 @@ export default async function HomePage() {
     <main>
         <article className="p-6">
             <h1 className="text-center font-bold m-4 text-xl">Welcome to Twitter Clone</h1>
-            <TweetList tweets={tweets} />
+            <TweetList initialTweets={tweets} />
         </article>
     </main>
   );

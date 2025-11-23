@@ -43,7 +43,7 @@ export default function TweetCard({ tweet }) {
     }
 
     return (
-        <article className="p-4 my-4 rounded-2xl shadow-md hovereffect hovereffect:hover text-gray-700">
+        <article className="w-full p-4 my-4 rounded-2xl shadow-md hovereffect hovereffect:hover text-gray-700">
             <Link key={tweet._id} href={`/tweet/${tweet._id}`}>   
                 <div>
                     <h2 className="font-semibold mb-3">{user}</h2>
