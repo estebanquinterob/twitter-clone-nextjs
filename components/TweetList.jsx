@@ -12,7 +12,7 @@ export default function TweetList({ tweets }) {
         <section className="flex flex-col items-center px-6 overflow-y-auto max-h-[80vh]">
             <CreateTweet />
             {tweets.slice(0, visible).map((tweet) => (
-            <TweetCard key={tweet.id} tweet={tweet} />
+            <TweetCard key={tweet._id} tweet={tweet} />
             ))} 
 
             {visible < tweets.length && (

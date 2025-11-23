@@ -6,7 +6,7 @@ import { ThumbsUp, ThumbsDown } from "lucide-react";
 
 // aqui tuve una confusion con la destructuracion del tweet y su paso como prop, por lo que tuve que leer sobre ello
 export default function TweetCard({ tweet }) {
-    const { title, body, tags, reactions } = tweet;
+    const { user, content, tags, reactions } = tweet;
     const [likes, setLikes] = useState(reactions.likes);
     const [dislikes, setDislikes] = useState(reactions.dislikes);
     const [hasLiked, setHasLiked] = useState(false);
@@ -44,10 +44,10 @@ export default function TweetCard({ tweet }) {
 
     return (
         <article className="p-4 my-4 rounded-2xl shadow-md hovereffect hovereffect:hover text-gray-700">
-            <Link key={tweet.id} href={`/tweet/${tweet.id}`}>   
+            <Link key={tweet._id} href={`/tweet/${tweet._id}`}>   
                 <div>
-                    <h2 className="font-semibold mb-3">{title}</h2>
-                    <p>{body}</p>
+                    <h2 className="font-semibold mb-3">{user}</h2>
+                    <p>{content}</p>
                 </div>
             </Link>
             <div>

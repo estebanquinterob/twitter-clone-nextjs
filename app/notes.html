@@ -54,3 +54,20 @@ backend (puedo considerarl ahora pero aun lo estamos aprendiendo)
 
 - aprender sobre mongoDB y aprender a instalarlo (mongodb atlas)
 ** nota personal, no conozco mongodb, ni docker por lo que siento un vacio en conocimiento, tambien leer sobre docker
+
+12.11.25
+
+- tenia dudas sobre la relacion route.js y mongodb, ahora entiendo que mongodb es la base de datos donde se almacena, lib/db.js es la conexion a la base de datos y routes/api/tweets.js es la ruta que maneja las peticiones a la base de datos, y route.js es la conexion entre el frontend y el backend, donde se hacen las peticiones a las rutas definidas en routes/api/tweets.js
+- en mongoose debo usar esquemas que me den un control y forma de lo que voy a ingresar a la base de datos, en mongodb puedo ingresar cualquier tipo de dato sin esquema pero es mejor usar mongoose para tener control sobre los datos, en este caso
+- las tareas, son conectar el mongodb con el proyecto a traves de mongoose, actualizar la pagina de route.js para que extraiga o envia la informacion a la base de datos
+- con createtweets y comments conectarlos con route.js para que se guarden en la base de datos y luego mostrarlos en tweetlist y en tweetdetail
+
+17.11.25
+
+- para la presentacion final puedo agregar algun feature, como guardar lo y mostrar los tweets liked
+- debo preparar algo dias antes, explicacion para personas que saben y que no saben, explicar en palabras simples
+- authentication, global context y middleware and protected routes
+- jwt token, bcrypt
+
+20.11.25
+- deployment en vercel

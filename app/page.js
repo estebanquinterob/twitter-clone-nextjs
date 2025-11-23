@@ -1,18 +1,28 @@
 import TweetList from "@/components/TweetList";
 
+
 async function fetchTweets() {
   try {
-    const response = await fetch ("https://dummyjson.com/posts");
-    const data= await response.json();
-    return data.posts;
+    const response = await fetch("http://localhost:3000/api/tweets");
+    if (!response.ok) {
+      console.error("Error fetching tweets:", response.statusText);
+      return [];
+    }
+    const tweets = await response.json();
+    return tweets;
   } catch (error) {
     console.error("Error getting Tweets:", error);
+    return [];
   }
-}
+} 
 
 
-export default async function HomePage() {
+
+
+export default async function HomePage() { 
+
   const tweets = await fetchTweets();
+
   return (
     <main>
         <article className="p-6">
