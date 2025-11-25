@@ -6,9 +6,9 @@ import { ThumbsUp, ThumbsDown } from "lucide-react";
 
 // aqui tuve una confusion con la destructuracion del tweet y su paso como prop, por lo que tuve que leer sobre ello
 export default function TweetCard({ tweet }) {
-    const { user, content, tags, reactions } = tweet;
-    const [likes, setLikes] = useState(reactions.likes);
-    const [dislikes, setDislikes] = useState(reactions.dislikes);
+    const { user, content, tags, reactions = { likes: 0, dislikes: 0 } } = tweet;
+    const [likes, setLikes] = useState(reactions.likes ?? 0);
+    const [dislikes, setDislikes] = useState(reactions.dislikes ?? 0);
     const [hasLiked, setHasLiked] = useState(false);
     const [hasDisliked, setHasDisliked] = useState(false);
     

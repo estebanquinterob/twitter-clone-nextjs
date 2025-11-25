@@ -42,5 +42,5 @@ export default function CreateTweet({ onTweetCreated }) {
              <button className="rounded-full text-white bg-linear-to-b from-blue-500 to-blue-800 p-2 px-5 hovereffect">Tweet</button>
             </div>
         </form>
-    );
+    ); 
 }
