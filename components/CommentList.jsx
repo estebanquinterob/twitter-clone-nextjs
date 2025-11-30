@@ -1,9 +1,11 @@
-export default function CommentList() { // { comments }
+export default function CommentList({ comments }) { // { comments }
     return (
         <ul className="p-3">
-            <li>Lorem ipsum dolor sit amet consectetur adipisicing.</li>
-            <li>Lorem ipsum dolor sit amet.</li>
-            <li>Lorem ipsum dolor sit amet consectetur.</li>
+            {comments.map((comment) => (
+                <li key={comment._id} className="border-b border-gray-200 py-4">
+                    {comment.content}
+                </li>
+            ))}
         </ul>
     );
 }
