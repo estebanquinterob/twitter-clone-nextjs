@@ -8,7 +8,7 @@ import CommentList from "@/components/CommentList";
 export default function TweetDetailClient({ initialTweet }) {
     const [comments, setComments] = useState(initialTweet.comments || []); // si initialTweet.comments es null, undefined, o falsy → usa un array vacío, evita erros si aun no hay comentarios
 
-    function handleComentAdded(newComment) {
+    function handleCommentCreated(newComment) {
         setComments((prevComments) => [newComment, ...prevComments]); // agrega el nuevo comentario al inicio del array de comentarios
     }
 
@@ -16,7 +16,7 @@ export default function TweetDetailClient({ initialTweet }) {
         <main className="h-dvh">
             <TweetCard tweet={{ ...initialTweet, commentsCount: comments.length }} /> {/* el comments.lenght aun no lo he implementado */}
             <div>
-                <CommentForm tweetId={initialTweet.id} onComentAdded={handleComentAdded} />
+                <CommentForm tweetId={initialTweet._id} onCommentCreated={handleCommentCreated} />
                 <CommentList comments={comments} />
             </div>
         </main>

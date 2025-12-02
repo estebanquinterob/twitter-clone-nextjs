@@ -14,7 +14,7 @@ export default function CreateTweet({ onTweetCreated }) {
         const newTweet = {
             user: randomUser,
             content: content,
-            tags: [],
+            tags: [], 
             reactions: { likes: 0, dislikes: 0 },
         };
 

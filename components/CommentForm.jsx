@@ -2,22 +2,32 @@
 
 import { useState } from "react";
 
-export default function CommentForm({ tweetId, onComentAdded }) {
+export default function CommentForm({ tweetId, onCommentCreated }) {
+
     const [commentText, setCommentText] = useState("");
 
     async function handleSubmit(e) {
         e.preventDefault();
 
+        const randomUser = "user" + Math.floor(Math.random() * 1000); // generar un usuario aleatorio para el comentario
+        const newComment = {
+            user: randomUser,
+            content: commentText,
+        };
+
         const res = await fetch(`/api/tweets/${tweetId}/comments`, {
             method: "POST",
             headers: { "Content-Type": "application/json"},
-            body: JSON.stringify({ commentText }),
+            body: JSON.stringify(newComment),
         });
         
-        const updatedTweet = await res.json();
-
-        onCommentAdded(updatedTweet.comments);
-        setCommentText("");
+        if (res.ok) {
+            const createdComment = await res.json();
+            onCommentCreated(createdComment); // llamar a la funcion pasada por props para actualizar la lista de tweets en el componente padre, actualizar la lista sin recargar la pagina
+            setContent(""); // limpiar el textarea despues de enviar el tweet
+        } else {
+            console.error("Error creating tweet");
+        }
     }
 
 
