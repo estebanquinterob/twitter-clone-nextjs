@@ -1,14 +1,32 @@
-export default function CommentList({ comments }) { // { comments }
-    return (
-        <ul className="p-3">
-            {comments.map((comment) => (
-                <li key={comment._id} className="border-b border-gray-200 py-4">
-                    {comment.content}
-                </li>
-            ))}
-        </ul>
-    );
+"use client";
+import { useEffect, useState } from "react";
+
+export default function CommentList({ tweetId }) {
+  const [comments, setComments] = useState([]);
+
+  useEffect(() => {
+    fetch(`/api/comments?tweetId=${tweetId}`)
+      .then((res) => res.json())
+      .then((data) => setComments(data));
+  }, [tweetId]);
+
+  return (
+    <ul className="mt-4 space-y-2">
+      {comments.map((comment) => (
+        <li
+          key={comment._id}
+          className="p-2 border rounded bg-gray-50 shadow"
+        >
+          <p className="text-sm">{comment.content}</p>
+          <span className="text-xs text-gray-500">
+            {new Date(comment.createdAt).toLocaleString()}
+          </span>
+        </li>
+      ))}
+    </ul>
+  );
 }
+
 
         // <div className="mt-4">
         //     {comments.map((comment) => (
