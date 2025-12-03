@@ -9,14 +9,14 @@ export default function CommentForm({ tweetId, onCommentCreated }) {
 
     const res = await fetch("/api/comments", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { "Content-Type": "application/json" }, // enviar datos en formato JSON. No es un formulario normal. Sin esto, req.json() en la API NO podría interpretar el body.
       body: JSON.stringify({
         tweetId,
         content,
       }),
     });
 
-    const newComment = await res.json();
+    const newComment = await res.json(); // la respuesta de la API (el comentario creado).
 
     onCommentCreated(newComment);
     setContent("");
@@ -26,12 +26,12 @@ export default function CommentForm({ tweetId, onCommentCreated }) {
     <form onSubmit={handleSubmit} className="mt-4">
       <input
         value={content}
-        onChange={(e) => setContent(e.target.value)}
+        onChange={(e) => setContent(e.target.value)} // onChange escucha cuando el usuario escribe.
         placeholder="Escribe un comentario..."
         className="w-full p-2 border rounded"
       />
       <button className="mt-2 px-4 py-1 bg-blue-500 text-white rounded">
-        Comentar
+        Comment
       </button>
     </form>
   );

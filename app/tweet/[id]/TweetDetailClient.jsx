@@ -37,7 +37,7 @@ export default function TweetDetailClient({ initialTweet }) {
 
       <CommentForm
         tweetId={initialTweet._id}
-        onCommentCreated={() => {}}
+        onCommentCreated={() => {}} // Es una función que el padre le pasa al hijo para que el hijo pueda avisar cuando algo sucede
       />
 
       <CommentList tweetId={initialTweet._id.toString()} />
