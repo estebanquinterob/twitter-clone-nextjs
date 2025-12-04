@@ -1,14 +1,14 @@
 "use client";
 import { useEffect, useState } from "react";
 
-export default function CommentList({ tweetId }) {
-  const [comments, setComments] = useState([]);
+export default function CommentList({ comments }) {
+  // const [comments, setComments] = useState([]);
 
-  useEffect(() => {
-    fetch(`/api/comments?tweetId=${tweetId}`)
-      .then((res) => res.json())
-      .then((data) => setComments(data));
-  }, [tweetId]);
+  // useEffect(() => {
+  //   fetch(`/api/comments?tweetId=${tweetId}`)
+  //     .then((res) => res.json())
+  //     .then((data) => setComments(data));
+  // }, [tweetId]);
 
   return (
     <ul className="mt-4 space-y-2">
