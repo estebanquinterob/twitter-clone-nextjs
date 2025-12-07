@@ -1,39 +1,37 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
-
-import { connectDB } from "@/lib/mongodb";
+import connectDB from "@/lib/db";
 import User from "@/models/User";
 
 export const authOptions = {
   providers: [
     CredentialsProvider({
       name: "credentials",
-
       credentials: {
-        email: {},
-        password: {}
+        email: { label: "Email", type: "email" },
+        password: { label: "Password", type: "password" }
       },
-
       async authorize(credentials) {
-        await connectDB();
+        try {
+          await connectDB();
 
-        const user = await User.findOne({ email: credentials.email });
-        if (!user) return null;
+          const user = await User.findOne({ email: credentials.email });
+          if (!user) return null;
 
-        const passwordMatch = await bcrypt.compare(
-          credentials.password,
-          user.password
-        );
+          const isValid = await bcrypt.compare(credentials.password, user.password);
+          if (!isValid) return null;
 
-        if (!passwordMatch) return null;
-
-        return {
-          id: user._id,
-          name: user.name,
-          email: user.email,
-          username: user.username
-        };
+          return {
+            id: user._id.toString(), // 👈 AGREGADO .toString()
+            name: user.name,
+            email: user.email,
+            username: user.username
+          };
+        } catch (error) {
+          console.error("Error en authorize:", error);
+          return null;
+        }
       }
     })
   ],
@@ -42,6 +40,12 @@ export const authOptions = {
     strategy: "jwt",
   },
 
+  // 👈 MOVIDO FUERA DE session
+  pages: {
+    signIn: "/",
+  },
+
+  // 👈 DESCOMENTADO Y NECESARIO
   callbacks: {
     async jwt({ token, user }) {
       if (user) {

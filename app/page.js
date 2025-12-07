@@ -1,57 +1,224 @@
-// cuando se implementa la autenticacion, esta paso a ser la landing page, antes el feed, quien paso a home y ser una pagina protegida
+"use client";
 
+import { signIn } from "next-auth/react";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
-import TweetList from "@/components/TweetList";
+export default function LandingPage() {
+  const router = useRouter();
+  const [isRegister, setIsRegister] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    username: "",
+    email: "",
+    password: ""
+  });
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setError("");
+    setLoading(true);
 
-async function fetchTweets() {
-  try {
-    const response = await fetch("http://localhost:3000/api/tweets");
-    if (!response.ok) {
-      console.error("Error fetching tweets:", response.statusText);
-      return [];
+    try {
+      const res = await signIn("credentials", {
+        email: formData.email,
+        password: formData.password,
+        redirect: false,
+      });
+
+      if (res?.error) {
+        setError("Email o contraseña incorrectos");
+        setLoading(false);
+        return;
+      }
+
+      // Login exitoso
+      router.push("/home");
+      router.refresh();
+    } catch (err) {
+      setError("Error al iniciar sesión");
+      setLoading(false);
     }
-    const tweets = await response.json();
-    return tweets;
-  } catch (error) {
-    console.error("Error getting Tweets:", error);
-    return [];
-  }
-} 
+  };
 
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    setError("");
+    setLoading(true);
 
+    try {
+      // 👈 RUTA CORREGIDA: /api/register (no /api/auth/register)
+      const res = await fetch("/api/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: formData.name,
+          username: formData.username,
+          email: formData.email,
+          password: formData.password
+        }),
+      });
 
+      const data = await res.json();
 
-export default async function HomePage() { 
+      if (!res.ok) {
+        setError(data.error || "Error al registrar");
+        setLoading(false);
+        return;
+      }
 
-  const tweets = await fetchTweets();
+      // Registro exitoso → login automático
+      const loginRes = await signIn("credentials", {
+        email: formData.email,
+        password: formData.password,
+        redirect: false,
+      });
+
+      if (loginRes?.error) {
+        setError("Registro exitoso, pero error al iniciar sesión");
+        setLoading(false);
+        return;
+      }
+
+      router.push("/home");
+      router.refresh();
+    } catch (err) {
+      setError("Error de conexión");
+      setLoading(false);
+    }
+  };
 
   return (
-    <main>
-        <article className="p-6">
-            <h1 className="text-center font-bold m-4 text-xl">Welcome to Twitter Clone</h1>
-            <TweetList initialTweets={tweets} />
-        </article>
+    <main className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-blue-50 to-blue-100 p-4">
+      <div className="bg-white rounded-2xl shadow-xl p-8 w-full max-w-md">
+        <h1 className="text-3xl font-bold text-center mb-2 text-gray-800">
+          {isRegister ? "Crear Cuenta" : "Bienvenido"}
+        </h1>
+        <p className="text-center text-gray-600 mb-6">
+          {isRegister ? "Únete a Twitter Clone" : "Inicia sesión en Twitter Clone"}
+        </p>
+
+        <div className="space-y-4">
+          {isRegister && (
+            <>
+              <input
+                type="text"
+                placeholder="Nombre completo"
+                value={formData.name}
+                onChange={(e) => setFormData({...formData, name: e.target.value})}
+                className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                required
+              />
+              <input
+                type="text"
+                placeholder="Username"
+                value={formData.username}
+                onChange={(e) => setFormData({...formData, username: e.target.value})}
+                className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                required
+              />
+            </>
+          )}
+          
+          <input
+            type="email"
+            placeholder="Email"
+            value={formData.email}
+            onChange={(e) => setFormData({...formData, email: e.target.value})}
+            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            required
+          />
+          
+          <input
+            type="password"
+            placeholder="Contraseña"
+            value={formData.password}
+            onChange={(e) => setFormData({...formData, password: e.target.value})}
+            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            required
+          />
+
+          {error && (
+            <div className="bg-red-50 border border-red-200 text-red-700 p-3 rounded-lg text-sm">
+              {error}
+            </div>
+          )}
+
+          <button
+            onClick={isRegister ? handleRegister : handleLogin}
+            disabled={loading}
+            className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold p-3 rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {loading 
+              ? "Procesando..." 
+              : isRegister ? "Registrarse" : "Iniciar sesión"
+            }
+          </button>
+        </div>
+
+        <button
+          onClick={() => {
+            setIsRegister(!isRegister);
+            setError("");
+            setFormData({ name: "", username: "", email: "", password: "" });
+          }}
+          className="w-full mt-4 text-blue-500 hover:text-blue-700 text-sm font-medium"
+        >
+          {isRegister 
+            ? "¿Ya tienes cuenta? Inicia sesión" 
+            : "¿No tienes cuenta? Regístrate"
+          }
+        </button>
+      </div>
     </main>
   );
 }
 
-// aqui iria el fetch y luego llama tweetcard, header, sidebar
-// para el fetch debo usar el useEffect y useState de react? 
-// aqui quiero poner 2 columnas, una para sidebar, otra central principal y otra a la derecha vacia o con algo que aun no se ha definido
-// si quiero pasarle classname a un componente debo ponerlo explicitamente en las props del componente
-{/* 
-  ejemplo
-  <Sidebar className="order-1 md:order-2" />
 
-Y en tu componente Sidebar.jsx:
 
-jsx
-export default function Sidebar({ className }) {
-  return (
-    <aside className={`bg-gray-100 p-4 rounded-lg ${className}`}>
-      Sidebar content here
-    </aside>
-  );
-} */}
+// "use client";
 
+// import { signIn } from "next-auth/react";
+// import { useState } from "react";
+
+// export default function LandingPage() {
+//   const [email, setEmail] = useState("");
+//   const [password, setPassword] = useState("");
+
+//   const handleLogin = async (e) => {
+//     e.preventDefault();
+//     const res = await signIn("credentials", {
+//       redirect: true,
+//       email,
+//       password,
+//       callbackUrl: "/home", // redirige al feed
+//     });
+//   };
+
+//   return (
+//     <main className="flex flex-col items-center justify-center h-screen">
+//       <h1 className="text-4xl font-bold mb-6">Bienvenido a Twitter Clone</h1>
+//       <form onSubmit={handleLogin} className="flex flex-col gap-4 w-80">
+//         <input
+//           type="email"
+//           placeholder="Email"
+//           value={email}
+//           onChange={(e) => setEmail(e.target.value)}
+//           className="p-2 border rounded"
+//         />
+//         <input
+//           type="password"
+//           placeholder="Contraseña"
+//           value={password}
+//           onChange={(e) => setPassword(e.target.value)}
+//           className="p-2 border rounded"
+//         />
+//         <button type="submit" className="bg-blue-500 text-white p-2 rounded">
+//           Iniciar sesión
+//         </button>
+//       </form>
+//     </main>
+//   );
+// }
