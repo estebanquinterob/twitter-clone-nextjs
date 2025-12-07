@@ -1,11 +1,12 @@
-// cuando se implementa la autenticacion, esta paso a ser la landing page, antes el feed, quien paso a home y ser una pagina protegida
-
-
 import TweetList from "@/components/TweetList";
-
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { redirect } from "next/navigation";
 
 async function fetchTweets() {
   try {
+    // const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/tweets`, {
+    // cache: "no-store" en lugar de localhost para produccion
     const response = await fetch("http://localhost:3000/api/tweets");
     if (!response.ok) {
       console.error("Error fetching tweets:", response.statusText);
@@ -20,20 +21,26 @@ async function fetchTweets() {
 } 
 
 
-
-
 export default async function HomePage() { 
+    
+    const session = await getServerSession(authOptions); // obtener la sesion en el server component
 
-  const tweets = await fetchTweets();
+    // si no hay sesion, redirigir al login
+    if (!session) {
+        redirect("/login");
+    }
 
-  return (
-    <main>
-        <article className="p-6">
-            <h1 className="text-center font-bold m-4 text-xl">Welcome to Twitter Clone</h1>
-            <TweetList initialTweets={tweets} />
-        </article>
-    </main>
-  );
+    const tweets = await fetchTweets();
+
+
+    return (
+        <main>
+            <article className="p-6">
+                <h1 className="text-center font-bold m-4 text-xl">Welcome { session.user.username } to Twitter Clone</h1>
+                <TweetList initialTweets={tweets} />
+            </article>
+        </main>
+    );
 }
 
 // aqui iria el fetch y luego llama tweetcard, header, sidebar

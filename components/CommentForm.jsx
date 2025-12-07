@@ -1,11 +1,16 @@
 "use client";
 import { useState } from "react";
 
-export default function CommentForm({ tweetId, onCommentCreated }) {
+export default function CommentForm({ tweetId, onCommentCreated, user }) {
   const [content, setContent] = useState("");
 
   async function handleSubmit(e) {
     e.preventDefault();
+
+    if(!user){
+      alert("You must be logged in to comment.");
+      return;
+    }
 
     const res = await fetch("/api/comments", {
       method: "POST",
@@ -13,8 +18,15 @@ export default function CommentForm({ tweetId, onCommentCreated }) {
       body: JSON.stringify({
         tweetId,
         content,
+        userId: user.id, // enviar el id del usuario que comenta
+        username: user.username // enviar el nombre del usuario que comenta
       }),
     });
+
+    if (!res.ok) {
+      console.error("Error creating comment");
+      return;
+    }
 
     const newComment = await res.json(); // la respuesta de la API (el comentario creado).
 
@@ -27,10 +39,15 @@ export default function CommentForm({ tweetId, onCommentCreated }) {
       <input
         value={content}
         onChange={(e) => setContent(e.target.value)} // onChange escucha cuando el usuario escribe.
-        placeholder="Escribe un comentario..."
+        placeholder={user?"Write a comment...":"Log in to write a comment..."}
         className="w-full p-2 border rounded"
+        disabled={!user} // deshabilitar el input si no hay usuario
       />
-      <button className="mt-2 px-4 py-1 bg-blue-500 text-white rounded">
+      <button
+       type="submit"
+       className="mt-2 px-4 py-1 bg-blue-500 text-white rounded"
+       // se bloquea el boton si no hay sesion
+       disabled={!user} > 
         Comment
       </button>
     </form>

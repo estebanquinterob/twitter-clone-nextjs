@@ -1,7 +1,11 @@
 import TweetDetailClient from "./TweetDetailClient";
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 export default async function TweetPage({ params }) {
   const { id } = await params;
+
+  const session = await getServerSession(authOptions); // obtener la sesion en el server component
 
   const res = await fetch(`http://localhost:3000/api/tweets/${id}`, { cache: "no-store" });
 
@@ -11,6 +15,8 @@ export default async function TweetPage({ params }) {
     <TweetDetailClient initialTweet={tweet} />
   )
 }
+
+// tengo la pregunta de la implementacion del getserversession, pero el id lo tengo entre server y client
 
 // import TweetCard from "@/components/TweetCard";
 // import CommentForm from "@/components/CommentForm";

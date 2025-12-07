@@ -30,9 +30,14 @@ import { useState, useEffect } from "react";
 import TweetCard from "@/components/TweetCard";
 import CommentForm from "@/components/CommentForm";
 import CommentList from "@/components/CommentList";
+import { useSession } from "next-auth/react";
 
-export default function TweetDetailClient({ initialTweet }) {
+export default function TweetDetailClient({ initialTweet, session: sessionFromServer }) {
   const [comments, setComments] = useState([]);
+  const { data: session } = useSession();
+
+  // preferimos usar la sesión del cliente si está disponible, sino usamos la del servidor
+  const currentUser = session || sessionFromServer;
 
   // cargar comentarios al inicio
   async function loadComments() {
@@ -56,6 +61,7 @@ export default function TweetDetailClient({ initialTweet }) {
       <CommentForm
         tweetId={initialTweet._id}
         onCommentCreated={handleCommentCreated} // Es una función que el padre le pasa al hijo para que el hijo pueda avisar cuando algo sucede
+        user={currentUser?.user} // le pasamos el usuario actual al formulario de comentarios
       />
 
       <CommentList comments={comments} />

@@ -4,7 +4,7 @@ import mongoose from "mongoose";
 export async function POST(req) {
   await connectDB();
 
-  const { tweetId, user, content } = await req.json(); // convierte el cuerpo del request (lo que envia el formulario) en un objeto JS, y que tome esas propiedades de lo que esta llegando (destructuring). "Del JSON que recibo del front, toma exactamente las propiedades: tweetId, user y content".
+  const { tweetId, content, userId, username } = await req.json(); // convierte el cuerpo del request (lo que envia el formulario) en un objeto JS, y que tome esas propiedades de lo que esta llegando (destructuring). "Del JSON que recibo del front, toma exactamente las propiedades: tweetId, user y content".
 
   if (!tweetId || !content) {
     return Response.json(
@@ -13,12 +13,20 @@ export async function POST(req) {
     );
   }
 
+  if (!userId) {
+    return Response.json(
+      { error: "Debes iniciar sesión para comentar" },
+      { status: 401 }
+    );
+  }
+
   const commentsCollection = mongoose.connection.collection("comments");
 
   const newComment = {
     tweetId,
-    user: user || "Anónimo",
     content,
+    userId,
+    username: username || "User",
     createdAt: new Date(),
   };
 
