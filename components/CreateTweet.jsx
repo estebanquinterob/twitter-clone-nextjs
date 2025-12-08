@@ -1,10 +1,11 @@
 "use client";
 
 import { useState } from "react";
+import { useSession } from "next-auth/react"; // importar el hook useSession para obtener la sesion del usuario
 
 
 export default function CreateTweet({ onTweetCreated }) {
-
+    const { data: session } = useSession();
     const [content, setContent] = useState("");
 
     async function handleSubmit(e) { // manejar el envio del tweet, e es el evento del formulario

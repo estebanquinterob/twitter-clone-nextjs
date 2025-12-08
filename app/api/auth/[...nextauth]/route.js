@@ -40,12 +40,12 @@ export const authOptions = {
     strategy: "jwt",
   },
 
-  // 👈 MOVIDO FUERA DE session
+  //  MOVIDO FUERA DE session
   pages: {
     signIn: "/",
   },
 
-  // 👈 DESCOMENTADO Y NECESARIO
+  //  DESCOMENTADO Y NECESARIO
   callbacks: {
     async jwt({ token, user }) {
       if (user) {

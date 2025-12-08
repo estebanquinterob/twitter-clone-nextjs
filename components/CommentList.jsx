@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-
+// aqui tendria que eliminar el fetch y el useEffect, y recibir los comments por props desde el componente padre (TweetPage), para no hacer fetch duplicados.
 export default function CommentList({ comments }) {
   // const [comments, setComments] = useState([]);
 

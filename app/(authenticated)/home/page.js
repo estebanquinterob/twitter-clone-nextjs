@@ -1,19 +1,23 @@
 import TweetList from "@/components/TweetList";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import { redirect } from "next/navigation";
+// import { redirect } from "next/navigation";
 
 async function fetchTweets() {
   try {
     // const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/tweets`, {
     // cache: "no-store" en lugar de localhost para produccion
-    const response = await fetch("http://localhost:3000/api/tweets");
+    const response = await fetch("http://localhost:3000/api/tweets", { cache: "no-store"}); // cache es para que siempre traiga los tweets actualizados
+
     if (!response.ok) {
       console.error("Error fetching tweets:", response.statusText);
       return [];
     }
-    const tweets = await response.json();
-    return tweets;
+
+    return await response.json();
+    // const tweets = await response.json();
+    // return tweets;
+    
   } catch (error) {
     console.error("Error getting Tweets:", error);
     return [];
@@ -25,18 +29,13 @@ export default async function HomePage() {
     
     const session = await getServerSession(authOptions); // obtener la sesion en el server component
 
-    // si no hay sesion, redirigir al login
-    if (!session) {
-        redirect("/login");
-    }
-
     const tweets = await fetchTweets();
 
 
     return (
         <main>
             <article className="p-6">
-                <h1 className="text-center font-bold m-4 text-xl">Welcome { session.user.username } to Twitter Clone</h1>
+                <h1 className="text-center font-bold m-4 text-xl">Welcome, { session.user.name }!</h1>
                 <TweetList initialTweets={tweets} />
             </article>
         </main>
