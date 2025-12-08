@@ -23,7 +23,7 @@ export const authOptions = {
           if (!isValid) return null;
 
           return {
-            id: user._id.toString(), // 👈 AGREGADO .toString()
+            id: user._id.toString(),
             name: user.name,
             email: user.email,
             username: user.username

@@ -49,7 +49,6 @@ export default function LandingPage() {
     setLoading(true);
 
     try {
-      // 👈 RUTA CORREGIDA: /api/register (no /api/auth/register)
       const res = await fetch("/api/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
