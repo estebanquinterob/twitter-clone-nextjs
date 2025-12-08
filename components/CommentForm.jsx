@@ -35,7 +35,7 @@ export default function CommentForm({ tweetId, onCommentCreated, user }) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="mt-4">
+    <form onSubmit={handleSubmit} className="mt-4 flex flex-col space-y-1">
       <input
         value={content}
         onChange={(e) => setContent(e.target.value)} // onChange escucha cuando el usuario escribe.
@@ -43,13 +43,15 @@ export default function CommentForm({ tweetId, onCommentCreated, user }) {
         className="w-full p-2 border rounded"
         disabled={!user} // deshabilitar el input si no hay usuario
       />
-      <button
-       type="submit"
-       className="mt-2 px-4 py-1 bg-blue-500 text-white rounded"
-       // se bloquea el boton si no hay sesion
-       disabled={!user} > 
-        Comment
-      </button>
+      <div className="flex justify-end">
+        <button
+        type="submit"
+        className="rounded-full mt-2 text-white bg-linear-to-b from-blue-500 to-blue-800 py-1 px-3 hovereffect text-sm hover:opacity-90"
+        // se bloquea el boton si no hay sesion
+        disabled={!user} > 
+          Comment
+        </button>
+      </div>
     </form>
   );
 }

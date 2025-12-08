@@ -55,7 +55,7 @@ export default function TweetDetailClient({ initialTweet, session: sessionFromSe
   }
 
   return (
-    <main className="p-4">
+    <main className="p-4 min-h-screen">
       <TweetCard tweet={initialTweet} />
 
       <CommentForm

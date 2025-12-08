@@ -7,13 +7,13 @@ import { Home, Compass, Bell, Mail, Bookmark, List, User } from "lucide-react";
 export default function Sidebar() {
 
     const navItems = [
-        { href: "/home", label: "Inicio", icon: Home },
-        { href: "/explore", label: "Explorar", icon: Compass },
-        { href: "/notifications", label: "Notificaciones", icon: Bell },
-        { href: "/messages", label: "Mensajes", icon: Mail },
-        { href: "/bookmarks", label: "Guardados", icon: Bookmark },
-        { href: "/lists", label: "Listas", icon: List },
-        { href: "/profile", label: "Perfil", icon: User },
+        { href: "/home", label: "Home", icon: Home },
+        { href: "/explore", label: "Explore", icon: Compass },
+        { href: "/notifications", label: "Notifications", icon: Bell },
+        { href: "/messages", label: "Messages", icon: Mail },
+        { href: "/bookmarks", label: "Saved", icon: Bookmark },
+        { href: "/lists", label: "Lists", icon: List },
+        { href: "/profile", label: "Profile", icon: User },
     ];
 
     return (

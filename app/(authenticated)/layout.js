@@ -3,6 +3,7 @@
 import "@/app/globals.css";
 import Header from "@/components/Header";
 import Sidebar from "@/components/Sidebar";
+import RightSidebar from "@/components/RightSideBar";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
@@ -32,7 +33,7 @@ export default async function AuthenticatedLayout({ children }) {
             <main className="order-1 md:order-2">{children}</main>
 
             <aside className="bg-gray-100 p-4 rounded-lg order-3">
-                Right Sidebar
+              <RightSidebar />
             </aside>
         </div>
     </div>
