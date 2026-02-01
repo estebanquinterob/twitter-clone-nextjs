@@ -46,9 +46,17 @@ export default function TweetDetailClient({ initialTweet, session: sessionFromSe
     setComments(data);
   }
 
+  // useEffect(() => {
+  //   loadComments();
+  // }, []);
   useEffect(() => {
-    loadComments();
-  }, []);
+    // Ejecutar solo cuando tengamos el id del tweet
+    if (initialTweet?._id) {
+      loadComments();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [initialTweet?._id]);
+
 
   function handleCommentCreated() {
     loadComments(); // recargar comentarios cuando se crea uno nuevo

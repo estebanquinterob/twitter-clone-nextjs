@@ -1,3 +1,75 @@
+# Twitter Clone (Next.js) 🐦
+
+This is a **Twitter clone project** built with **Next.js**, created as part of my learning in modern web development. The main goal is to replicate the appearance and basic functionalities of the Twitter platform, applying **Frontend and Full-Stack Development concepts** using popular technologies like React and Next.js.
+
+---
+
+## 🚀 Project Description
+
+This project is a **Twitter-like application** built with Next.js and React. The clone allows viewing the structure of a micro-post system or "tweets" and serves as a practical exercise to master concepts of modern web application architecture, page rendering, reusable components, and responsive design. I also conected with a mongoDB database where I can store the new and old tweets or the user information which is compared in the registration and authentication processes and communicate that between front and backend with APIs 
+
+---
+
+## 📌 Features
+
+- Structure using **Next.js with pages/app router**
+- Reusable UI components (header, tweet list, input fields, etc.)
+- Responsive design for mobile and desktop
+- Styling integration with **Tailwind CSS**
+- Base setup to add backend logic (API, authentication, database)
+- Great foundation for practicing SSR, SSG, and CSR
+
+> 👨‍💻 This project can be extended to include authentication, database integration, APIs, likes, comments, and more.
+
+---
+
+## 🛠️ Technologies & Concepts Applied
+
+| Category | Technologies / Concepts |
+|----------|-------------------------|
+| Framework | Next.js (React) |
+| Language | JavaScript |
+| Styling | Tailwind CSS |
+| Development | React components, routing, utility-based styling |
+| Concepts | SPA, SSR/SSG, responsive UI |
+| Tools | npm/yarn, Git & GitHub |
+
+---
+
+## 📁 Project Structure
+
+├── app/ (pages and content)
+├── components/ (reusable UI components)
+├── public/ (static assets)
+├── styles/ (Tailwind custom classes)
+├── next.config.js (Next.js configuration)
+├── package.json (dependencies)
+
+## 📥 Installation
+
+1. Clone the repository:
+
+git clone https://github.com/estebanquinterob/twitter-clone-nextjs.git
+
+2. Navigate into the project and install dependencies:
+
+cd twitter-clone-nextjs
+npm install
+
+
+3. Start the development server:
+
+npm run dev
+
+
+4. Open your browser:
+
+http://localhost:3000
+
+
+
+
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
