@@ -48,19 +48,19 @@ This project is a **Twitter-like application** built with Next.js and React. The
 ## 📥 Installation
 
 1. Clone the repository:
-
+```bash
 git clone https://github.com/estebanquinterob/twitter-clone-nextjs.git
-
+```
 2. Navigate into the project and install dependencies:
-
+```bash
 cd twitter-clone-nextjs
 npm install
-
+```
 
 3. Start the development server:
-
+```bash
 npm run dev
-
+```
 
 4. Open your browser:
 
